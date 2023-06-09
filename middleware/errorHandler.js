@@ -1,5 +1,5 @@
-import errorCodes from "../constants/errorCodes.js";
-import logEvents from "./logEvents.js";
+const { errorCodes } = require("../constants/errorCodes");
+const { logEvents } = require("./logEvents");
 
 const errorHandler = function (err, req, res, next) {
   let reason = "";
@@ -38,4 +38,4 @@ const logError = (reason, statusCode, errorStack) => {
   console.error(errorStack);
 };
 
-export default errorHandler;
+module.exports = errorHandler;

@@ -1,11 +1,9 @@
-import { format } from "date-fns";
-import { v4 as uuid } from "uuid";
-import fs from "fs";
-import fsPromises from "fs/promises";
-import path from "path";
-import { fileURLToPath } from "url";
+const { format } = require("date-fns");
+const { v4: uuid } = require("uuid");
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url))
+const fs = require("fs");
+const fsPromises = require("fs").promises;
+const path = require("path");
 
 const logEvents = async (message, fileName) => {
   const dateTime = `${format(new Date(), "ddMMyyyy\tHH:mm:ss")}`;
@@ -30,4 +28,4 @@ const logger = (req, res, next) => {
   next();
 };
 
-export default logger;
+module.exports = { logEvents, logger };

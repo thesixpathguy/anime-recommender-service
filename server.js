@@ -1,28 +1,22 @@
-import dotenv from "dotenv"
-dotenv.config()
-import express from "express"
-const app = express()
-import cors from "cors"
-import mongoose from "mongoose"
-import corsOptions from "./config/corsOptions.js"
-import credentials from "./middleware/credentials.js"
-// import connectDB from "./config/dbConn.js"
-import errorHandler from "./middleware/errorHandler.js"
-import logger from "./middleware/logEvents.js"
+require("dotenv").config();
+const express = require("express");
+const app = express();
+const cors = require("cors");
+const corsOptions = require("./config/corsOptions");
+const credentials = require("./middleware/credentials");
+const mongoose = require("mongoose");
+const connectDB = require("./config/dbConn");
+const errorHandler = require("./middleware/errorHandler.js");
 
 const PORT = process.env.PORT || 3500;
 
 // connecting DB
-// connectDB();
-
-// custom middleware logger
-app.use(logger);
+connectDB();
 
 // Cors settings
 app.use(credentials);
 app.use(cors(corsOptions));
 
-// Middleware
 // for form data (encoded data)
 app.use(express.urlencoded({ extended: false }));
 
