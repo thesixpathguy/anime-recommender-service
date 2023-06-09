@@ -1,4 +1,4 @@
-exports.constants = Object.freeze({
+module.exports = Object.freeze({
   VALIDATION_ERROR: 400,
   NOT_FOUND: 404,
   UNAUTHORIZED: 401,
