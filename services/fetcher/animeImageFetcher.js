@@ -10,6 +10,7 @@ const config = {
   },
 };
 
+// if no image uri found, then this will be used
 const dummyAnimeURI = "https://cdn.myanimelist.net/images/anime/7/42453.jpg";
 
 const fetchAnimeImage = async (animeName) => {

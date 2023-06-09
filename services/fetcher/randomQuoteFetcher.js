@@ -13,7 +13,6 @@ const fetchRandomQuote = async () => {
 
     // fetching anime image
     let animeImageURI = await fetchAnimeImage(response.data.anime || "");
-    console.log(typeof animeImageURI !== "undefined");
 
     // fetching character image
     let characterImageURI = await fetchCharacterImage(
@@ -28,7 +27,5 @@ const fetchRandomQuote = async () => {
     return err;
   }
 };
-
-fetchRandomQuote();
 
 module.exports = fetchRandomQuote;

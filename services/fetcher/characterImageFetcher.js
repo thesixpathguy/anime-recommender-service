@@ -10,6 +10,7 @@ const config = {
   },
 };
 
+// if no image uri found, then this will be used
 const dummyCharacterURI =
   "https://cdn.myanimelist.net/images/characters/5/223525.jpg";
 
