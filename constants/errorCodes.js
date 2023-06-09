@@ -1,4 +1,4 @@
-module.exports = Object.freeze({
+export default Object.freeze({
   VALIDATION_ERROR: 400,
   NOT_FOUND: 404,
   UNAUTHORIZED: 401,

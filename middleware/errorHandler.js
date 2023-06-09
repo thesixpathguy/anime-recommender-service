@@ -38,4 +38,4 @@ const logError = (reason, statusCode, errorStack) => {
   console.error(errorStack);
 };
 
-module.exports = errorHandler;
+export default errorHandler;
