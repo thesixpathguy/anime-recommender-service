@@ -1,4 +1,4 @@
-const { errorCodes } = require("../constants/errorCodes");
+const errorCodes = require("../constants/errorCodes");
 const { logEvents } = require("./logEvents");
 
 const errorHandler = function (err, req, res, next) {
@@ -22,7 +22,7 @@ const errorHandler = function (err, req, res, next) {
       break;
     default:
       console.log("no error. all is good.");
-      break;
+      return;
   }
   logError(reason, statusCode, err.stack);
   res.json({
