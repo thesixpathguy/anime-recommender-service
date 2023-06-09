@@ -1,9 +1,8 @@
 const express = require("express");
 const path = require("path");
 const router = express.Router();
+const handleSubscription = require('../controllers/subscribeController');
 
-router.get('^/$|/index(.html)?', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', 'views', 'index.html'));
-});
+router.post('/', handleSubscription)
 
 module.exports = router;

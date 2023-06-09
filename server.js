@@ -6,8 +6,9 @@ const path = require("path");
 const corsOptions = require("./config/corsOptions");
 const credentials = require("./middleware/credentials");
 const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
 const connectDB = require("./config/dbConn");
-const errorHandler = require("./middleware/errorHandler.js");
+const errorHandler = require("./middleware/errorHandler");
 
 const PORT = process.env.PORT || 3500;
 const env = process.env.NODE_ENV || "dev";
@@ -21,12 +22,23 @@ app.use(credentials);
 app.use(cors(corsOptions));
 
 // Middleware
-app.use(express.urlencoded({ extended: false })); // for form data (encoded data)
+app.use(bodyParser.urlencoded({ extended: true })); // for form data (encoded data)
 app.use(express.json()); // for json data
-app.use('/', express.static(path.join(__dirname, 'public')))
+app.use('/', express.static(path.join(__dirname, 'public')));
 
 //routes
 app.use("/", require('./routes/root.js'));
+// app.use("/subscribe", require('./routes/subscribe.js'));
+app.post("/subscribe", (req, res) => {
+  console.log(req.body)
+  const email = req.body.email;
+  if (!email) {
+    res.status(400).json({ message: "Email is required" });
+    return;
+  }
+  console.log(email);
+  res.status(200).json({ message: "Email received" });
+});
 
 // error handler
 app.use(errorHandler);
