@@ -24,7 +24,7 @@ const fetchRandomQuote = async () => {
     delete quote["__v"]; // deleting redundant params
     return quote;
   } catch (err) {
-    return err;
+    throw err;
   }
 };
 

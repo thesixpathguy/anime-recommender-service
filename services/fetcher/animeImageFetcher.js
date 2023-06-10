@@ -22,7 +22,7 @@ const fetchAnimeImage = async (animeName) => {
       return response.data.data[0].images.jpg.image_url;
     } else return dummyAnimeURI;
   } catch (err) {
-    return err;
+    throw err;
   }
 };
 

@@ -49,10 +49,9 @@ const fetchRandomWaifu = async (type) => {
 
     const response = await axios.request(config);
     const imageURI = response.data;
-    console.log(imageURI);
     return imageURI;
   } catch (err) {
-    return err;
+    throw err;
   }
 };
 
