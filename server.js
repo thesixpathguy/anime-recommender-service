@@ -6,8 +6,9 @@ const path = require("path");
 const corsOptions = require("./config/corsOptions");
 const credentials = require("./middleware/credentials");
 const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
 const connectDB = require("./config/dbConn");
-const errorHandler = require("./middleware/errorHandler.js");
+const errorHandler = require("./middleware/errorHandler");
 const cronJob = require("./services/cronScheduler/cronScheduler");
 
 const PORT = process.env.PORT || 3500;
@@ -19,17 +20,20 @@ cronJob.start();
 // connecting DB
 if (env !== "dev") connectDB();
 
+app.set('view engine', 'pug')
+
 // Cors settings
 app.use(credentials);
 app.use(cors(corsOptions));
 
 // Middleware
-app.use(express.urlencoded({ extended: false })); // for form data (encoded data)
+app.use(bodyParser.urlencoded({ extended: true })); // for form data (encoded data)
 app.use(express.json()); // for json data
-app.use("/", express.static(path.join(__dirname, "public")));
+app.use('/', express.static(path.join(__dirname, 'public')));
 
 //routes
-app.use("/", require("./routes/root.js"));
+app.use("/", require('./routes/root.js'));
+app.use("/subscribe", require('./routes/subscribe.js'));
 app.use("/api/shootEmail", require("./routes/api/shootEmail"));
 
 // error handler
