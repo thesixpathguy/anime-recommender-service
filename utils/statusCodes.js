@@ -4,6 +4,7 @@ const errorCodes = Object.freeze({
   UNAUTHORIZED: 401,
   FORBIDDEN: 403,
   SERVER_ERROR: 500,
+  CONFLICT: 409,
 });
 
 const successCodes = Object.freeze({

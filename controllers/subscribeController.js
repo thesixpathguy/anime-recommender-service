@@ -1,6 +1,6 @@
 const fs = require("fs");
 const path = require("path");
-const { errorCodes } = require("../constants/statusCodes");
+const { errorCodes } = require("../utils/statusCodes");
 const pug = require("pug");
 
 const handleSubscription = (req, res, next) => {

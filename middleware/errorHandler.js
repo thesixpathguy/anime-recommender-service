@@ -1,4 +1,4 @@
-const { errorCodes } = require("../constants/statusCodes");
+const { errorCodes } = require("../utils/statusCodes");
 const { logEvents } = require("./logEvents");
 
 const errorHandler = function (err, req, res, next) {
@@ -19,6 +19,9 @@ const errorHandler = function (err, req, res, next) {
       break;
     case errorCodes.SERVER_ERROR:
       reason = "Server error";
+      break;
+    case errorCodes.CONFLICT:
+      reason = "Conflict";
       break;
     default:
       console.log("no error. all is good.");

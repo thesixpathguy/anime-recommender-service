@@ -6,6 +6,7 @@ const UserSchema = new Schema({
         type: String,
         trim: true,
         required: [true, 'Email is required.'],
+        unique: true,
     },
     NSFWPreference: {
         type: Boolean,

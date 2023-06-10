@@ -1,8 +1,14 @@
 const User = require('../models/User');
 const mongoose = require('mongoose');
-const { errorCodes, successCodes } = require("../constants/statusCodes");
-const { UserNotFoundError } = require("../constants/customErrors");
-const { ValidationError, DatabaseError, EntityAlreadyExistsError } = require('../constants/customErrors');
+const { errorCodes, successCodes } = require("../utils/statusCodes");
+const { ValidationError, DatabaseError, EntityAlreadyExistsError } = require('../utils/customErrors');
+const handleError = require('../utils/CRUDErrorHandler');
+
+/*
+    @desc       Get all users
+    @route      GET /api/v1/users
+    @access     Public
+*/
 
 const getAllUsers = async (req, res, next) => {
     try {
@@ -27,13 +33,16 @@ const getAllUsers = async (req, res, next) => {
             });
         }
     } catch (err) {
-        res.status(errorCodes.SERVER_ERROR).json({
-            status: 'error',
-            message: err.message,
-        });
+        res.status(errorCodes.SERVER_ERROR);
         next(err);
     }
 }
+
+/*
+    @desc    Create a new user
+    @route   POST /api/v1/users
+    @access  Public
+*/
 
 const createNewUser = async (req, res, next) => {
     try {
@@ -62,6 +71,12 @@ const createNewUser = async (req, res, next) => {
     }
 }
 
+/*
+    @desc    Update a user's NSFW preference
+    @route   PUT /api/v1/users
+    @access  Public
+*/
+
 const updateUserNSFWPreference = async (req, res, next) => {
     try {
         const email = req.body.email;
@@ -85,6 +100,12 @@ const updateUserNSFWPreference = async (req, res, next) => {
     }
 }
 
+/*
+    @desc    Delete a user
+    @route   DELETE /api/v1/users
+    @access  Public
+*/
+
 const deleteUser = async (req, res, next) => {
     try {
         const email = req.body.email;
@@ -105,9 +126,15 @@ const deleteUser = async (req, res, next) => {
     }
 }
 
+/*
+    @desc    Get a user by email
+    @route   GET /api/v1/users
+    @access  Public
+*/
+
 const getUserByEmail = async (req, res, next) => {
     try {
-        const email = req.body.email;
+        const email = req.params.email;
         if(!isValidEmail(email)) {
             throw new ValidationError(email);
         }
@@ -136,26 +163,6 @@ const getUserByEmail = async (req, res, next) => {
 function isValidEmail(email) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
-}
-
-function handleError(err, res) {
-    if(err instanceof ValidationError) {
-        res.status(errorCodes.VALIDATION_ERROR).json({
-            status: 'error',
-            message: err.message,
-        });
-    } else if(err instanceof EntityAlreadyExistsError) {
-        res.status(successCodes.OK).json({
-            status: 'error',
-            message: err.message,
-        });
-    } else {
-        res.status(errorCodes.SERVER_ERROR).json({
-            status: 'error',
-            message: err.message,
-        });
-    }
-    return res;
 }
 
 module.exports = { getAllUsers, createNewUser, updateUserNSFWPreference, deleteUser, getUserByEmail };
