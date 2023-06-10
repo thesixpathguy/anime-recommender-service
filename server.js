@@ -36,6 +36,7 @@ app.use("/", express.static(path.join(__dirname, "public")));
 app.use("/", require("./routes/root.js"));
 app.use("/subscribe", require("./routes/subscribe.js"));
 app.use("/api/shootEmail", require("./routes/api/shootEmail"));
+app.use("/api/user", require("./routes/api/user"));
 
 // error handler
 app.use(errorHandler);
