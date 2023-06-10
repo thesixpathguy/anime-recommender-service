@@ -1,4 +1,5 @@
 const axios = require("axios");
+const rateLimiter = require("../../utils/rateLimiter");
 
 const config = {
   method: "GET",
@@ -10,6 +11,7 @@ const rankLimit = 3000; // will pick animes below the rank of 3000
 const fetchRandomAnime = async () => {
   try {
     while (true) {
+      rateLimiter(2000);
       const response = await axios.request(config);
       let anime = {};
       // anime should be approved by MAL
