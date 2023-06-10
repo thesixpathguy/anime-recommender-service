@@ -17,6 +17,8 @@ const handleSubscription = (req, res) => {
     )
     return;
   }
+  //save the email to the DB
+  
   res.render(
     path.join(__dirname, '..', 'views', 'templates', 'subscribeResponse.pug'),
     {
