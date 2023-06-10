@@ -33,7 +33,7 @@ const handleSubscription = (req, res, next) => {
       }
     );
   } catch (err) {
-    res.status(500);
+    res.status(errorCodes.SERVER_ERROR);
     next(err);
   }
 };

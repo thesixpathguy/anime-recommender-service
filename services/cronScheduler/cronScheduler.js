@@ -8,7 +8,7 @@ var cronJob = new CronJob(
   cron,
   async () => {
     console.log("Event initiated");
-    logEvents("Cron initiated.", "cronLog.txt");
+    await logEvents("Cron initiated.", "cronLog.txt");
     await axios.get("http://localhost:3500/api/shootEmail");
   },
   null,
