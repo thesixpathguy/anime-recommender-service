@@ -5,7 +5,6 @@ const pug = require('pug');
 
 const handleSubscription = (req, res) => {
   //TODO: Verification link to be emailed
-  console.log(req.body)
   const email = req.body.email;
   if (!email) {
     res.render(
