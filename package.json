@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node server",
     "dev": "SET NODE_ENV=dev&nodemon server",
-    "prod": "SET NODE_ENV=prod&node server"
+    "prod": "SET NODE_ENV=prod&nodemon server"
   },
   "author": "thesixpathguy <-> AaronStone24",
   "license": "MIT",
