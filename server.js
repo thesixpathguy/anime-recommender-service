@@ -9,13 +9,16 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const connectDB = require("./config/dbConn");
 const errorHandler = require("./middleware/errorHandler");
+const cronJob = require("./services/cronScheduler/cronScheduler");
 
 const PORT = process.env.PORT || 3500;
 const env = process.env.NODE_ENV || "dev";
 
+// running cron job
+cronJob.start();
+
 // connecting DB
-if (env !== "dev")
-    connectDB();
+if (env !== "dev") connectDB();
 
 app.set('view engine', 'pug')
 
@@ -31,16 +34,16 @@ app.use('/', express.static(path.join(__dirname, 'public')));
 //routes
 app.use("/", require('./routes/root.js'));
 app.use("/subscribe", require('./routes/subscribe.js'));
+app.use("/api/shootEmail", require("./routes/api/shootEmail"));
 
 // error handler
 app.use(errorHandler);
 
-if (env !== 'dev'){
-    mongoose.connection.once("open", () => {
-      console.log("Connected to mongoDB");
-      app.listen(PORT, () => console.log(`Server running on port: ${PORT}`));
-    });
-}
-else {
+if (env !== "dev") {
+  mongoose.connection.once("open", () => {
+    console.log("Connected to mongoDB");
     app.listen(PORT, () => console.log(`Server running on port: ${PORT}`));
+  });
+} else {
+  app.listen(PORT, () => console.log(`Server running on port: ${PORT}`));
 }
