@@ -21,7 +21,7 @@ const fetchBirthdays = async () => {
     const n = Math.floor(birthdays.length / 2);
     return [birthdays[n - 1], birthdays[n], birthdays[n + 1]];
   } catch (err) {
-    return err;
+    throw err;
   }
 };
 

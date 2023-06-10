@@ -22,6 +22,7 @@ const errorHandler = function (err, req, res, next) {
       break;
     default:
       console.log("no error. all is good.");
+      next();
       return;
   }
   logError(reason, statusCode, err.stack);
@@ -31,6 +32,7 @@ const errorHandler = function (err, req, res, next) {
     message: err.message,
     stack: err.stack,
   });
+  next();
 };
 
 const logError = (reason, statusCode, errorStack) => {

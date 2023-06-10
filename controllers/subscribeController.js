@@ -1,30 +1,41 @@
-const fs = require('fs');
-const path = require('path');
+const fs = require("fs");
+const path = require("path");
 const { errorCodes } = require("../constants/statusCodes");
-const pug = require('pug');
+const pug = require("pug");
 
-const handleSubscription = (req, res) => {
+const handleSubscription = (req, res, next) => {
   //TODO: Verification link to be emailed
-  const email = req.body.email;
-  if (!email) {
-    res.render(
-      path.join(__dirname, '..', 'views', 'templates', 'subscribeResponse.pug'),
-      {
-        title: 'Anime Recommneder',
-        greetingText: 'Oops!',
-        message: 'Email is required.', 
-      }
-    )
-    return;
-  }
-  res.render(
-    path.join(__dirname, '..', 'views', 'templates', 'subscribeResponse.pug'),
-    {
-      title: 'Anime Recommneder',
-      greetingText: 'Thank you!',
-      message: 'Email received.',
+  try {
+    const email = req.body.email;
+    if (!email) {
+      res.render(
+        path.join(
+          __dirname,
+          "..",
+          "views",
+          "templates",
+          "subscribeResponse.pug"
+        ),
+        {
+          title: "Anime Recommneder",
+          greetingText: "Oops!",
+          message: "Email is required.",
+        }
+      );
+      return;
     }
-  )
-}
+    res.render(
+      path.join(__dirname, "..", "views", "templates", "subscribeResponse.pug"),
+      {
+        title: "Anime Recommneder",
+        greetingText: "Thank you!",
+        message: "Email received.",
+      }
+    );
+  } catch (err) {
+    res.status(500);
+    next(err);
+  }
+};
 
 module.exports = handleSubscription;

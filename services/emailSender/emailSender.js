@@ -20,7 +20,7 @@ const sendEmail = async (from, pass, to, subject, text, html) => {
     console.log("Message sent: %s", info.messageId);
     logEvents(`${info.messageId}\t${info.accepted}`, "emailLog.txt");
   } catch (err) {
-    return err;
+    throw err;
   }
 };
 

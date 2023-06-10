@@ -1,5 +1,5 @@
-const asyncHandler = require("express-async-handler");
 const sendEmail = require("../services/emailSender/emailSender");
+const dataCompiler = require("../services/dataCompiler");
 
 const subject = "New Anime Letter";
 
@@ -8,12 +8,18 @@ const subject = "New Anime Letter";
     @route GET /api/shootEmail
     @access public
 */
-const shootEmail = asyncHandler(async (req, res) => {
-  const from = process.env.EMAIL_ACCOUNT;
-  const pass = process.env.EMAILL_PASSWORD;
-  const to = "2019mcb1228@iitrpr.ac.in";
-  const text = "This is the quote";
-  sendEmail(from, pass, to, subject, text, "");
-});
+const shootEmail = async (req, res, next) => {
+  try {
+    const from = process.env.EMAIL_ACCOUNT;
+    const pass = process.env.EMAILL_PASSWORD;
+    const to = "2019mcb1228@iitrpr.ac.in";
+    const text = "This is the quote";
+    const dataObj = await dataCompiler(5, "sfw"); // compiles html template data
+    sendEmail(from, pass, to, subject, text, "");
+  } catch (err) {
+    res.status(500);
+    next(err);
+  }
+};
 
 module.exports = shootEmail;
