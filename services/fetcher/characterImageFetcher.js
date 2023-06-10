@@ -23,7 +23,7 @@ const fetchCharacterImage = async (characterName) => {
       return response.data.data[0].images.jpg.image_url;
     } else return dummyCharacterURI;
   } catch (err) {
-    return err;
+    throw err;
   }
 };
 

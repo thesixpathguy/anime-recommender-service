@@ -34,7 +34,7 @@ const fetchRandomAnime = async () => {
       return anime;
     }
   } catch (err) {
-    return err;
+    throw err;
   }
 };
 
@@ -56,8 +56,8 @@ const fetchRandomAnimes = async (num) => {
     }
     return animes;
   } catch (err) {
-    return err;
+    throw err;
   }
 };
 
-module.exports = { fetchRandomAnimes };
+module.exports = fetchRandomAnimes;
