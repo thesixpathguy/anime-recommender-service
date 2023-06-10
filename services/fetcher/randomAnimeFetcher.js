@@ -39,21 +39,25 @@ const fetchRandomAnime = async () => {
 };
 
 const fetchRandomAnimes = async (num) => {
-  let animes = [];
-  while (num--) {
-    const anime = await fetchRandomAnime();
-    if (
-      animes.find((a) => {
-        a === anime;
-      })
-    ) {
-      num++;
-      continue;
-    } else {
-      animes.push(anime);
+  try {
+    let animes = [];
+    while (num--) {
+      const anime = await fetchRandomAnime();
+      if (
+        animes.find((a) => {
+          a === anime;
+        })
+      ) {
+        num++;
+        continue;
+      } else {
+        animes.push(anime);
+      }
     }
+    return animes;
+  } catch (err) {
+    return err;
   }
-  return animes;
 };
 
 module.exports = { fetchRandomAnimes };
