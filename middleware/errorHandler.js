@@ -1,4 +1,4 @@
-const errorCodes = require("../constants/errorCodes");
+const { errorCodes } = require("../constants/statusCodes");
 const { logEvents } = require("./logEvents");
 
 const errorHandler = function (err, req, res, next) {

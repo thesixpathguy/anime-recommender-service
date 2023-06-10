@@ -17,6 +17,8 @@ const env = process.env.NODE_ENV || "dev";
 if (env !== "dev")
     connectDB();
 
+app.set('view engine', 'pug')
+
 // Cors settings
 app.use(credentials);
 app.use(cors(corsOptions));
@@ -28,17 +30,7 @@ app.use('/', express.static(path.join(__dirname, 'public')));
 
 //routes
 app.use("/", require('./routes/root.js'));
-// app.use("/subscribe", require('./routes/subscribe.js'));
-app.post("/subscribe", (req, res) => {
-  console.log(req.body)
-  const email = req.body.email;
-  if (!email) {
-    res.status(400).json({ message: "Email is required" });
-    return;
-  }
-  console.log(email);
-  res.status(200).json({ message: "Email received" });
-});
+app.use("/subscribe", require('./routes/subscribe.js'));
 
 // error handler
 app.use(errorHandler);
