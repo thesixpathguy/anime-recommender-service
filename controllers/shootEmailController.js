@@ -14,7 +14,7 @@ const shootEmail = async (req, res, next) => {
   try {
     const from = process.env.EMAIL_ACCOUNT;
     const pass = process.env.EMAILL_PASSWORD;
-    const to = await fetchClients();
+    const to = await fetchClients(); // fetch the subscribed clients
     if (to == "") {
       // no users to send emails
       res.sendStatus(successCodes.ACCEPTED);
