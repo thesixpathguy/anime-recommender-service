@@ -1,39 +1,32 @@
-const fs = require("fs");
 const path = require("path");
-const { errorCodes } = require("../utils/statusCodes");
-const pug = require("pug");
+const { createNewUser, newUserEmitter } = require("./userController");
+const { EVENTS } = require("../utils/utilConstants");
 
-const handleSubscription = (req, res, next) => {
+const handleSubscription = async (req, res, next) => {
   //TODO: Verification link to be emailed
   try {
-    const email = req.body.email;
-    if (!email) {
+    newUserEmitter.once(EVENTS.ERROR, (message) => {
       res.render(
-        path.join(
-          __dirname,
-          "..",
-          "views",
-          "templates",
-          "subscribeResponse.pug"
-        ),
+        path.join(__dirname, "..", "views", "templates", "subscribeResponse.pug"),
         {
           title: "Anime Recommneder",
           greetingText: "Oops!",
-          message: "Email is required.",
+          message: message,
         }
       );
-      return;
-    }
-    res.render(
-      path.join(__dirname, "..", "views", "templates", "subscribeResponse.pug"),
-      {
-        title: "Anime Recommneder",
-        greetingText: "Thank you!",
-        message: "Email received.",
-      }
-    );
+    });
+    newUserEmitter.once(EVENTS.SUCCESS, (message) => {
+      res.render(
+        path.join(__dirname, "..", "views", "templates", "subscribeResponse.pug"),
+        {
+          title: "Anime Recommneder",
+          greetingText: "Thank you!",
+          message: "Email received.",
+        }
+      );
+    });
+    await createNewUser(req, res, next);
   } catch (err) {
-    res.status(errorCodes.SERVER_ERROR);
     next(err);
   }
 };
