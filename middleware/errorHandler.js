@@ -25,6 +25,7 @@ const errorHandler = function (err, req, res, next) {
       break;
     default:
       console.log("no error. all is good.");
+      console.log(err.message);
       next();
       return;
   }

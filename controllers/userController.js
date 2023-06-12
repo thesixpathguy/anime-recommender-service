@@ -1,12 +1,9 @@
 const User = require("../models/User");
-const mongoose = require("mongoose");
 const { errorCodes, successCodes } = require("../utils/statusCodes");
-const {
-  ValidationError,
-  DatabaseError,
-  EntityAlreadyExistsError,
-} = require("../utils/customErrors");
+const { ValidationError, DatabaseError, EntityAlreadyExistsError } = require("../utils/customErrors");
 const handleError = require("../utils/CRUDErrorHandler");
+const EventEmitter = require("events");
+const { EVENTS } = require("../utils/utilConstants");
 
 /*
     @desc       Get all users
@@ -47,31 +44,28 @@ const getAllUsers = async (req, res, next) => {
     @access  Public
 */
 
+const newUserEmitter = new EventEmitter();
+
 const createNewUser = async (req, res, next) => {
-  try {
+  try{
     const email = req.body.email;
-    const NSFWPref = req.body.NSFWPreference || false;
+    const NSFWPref = (req.body.NSFWPreference === "true");
     if (!isValidEmail(email)) {
       throw new ValidationError(email);
     }
     const existingUser = await User.findOne({ email });
     if (existingUser) {
-      throw new EntityAlreadyExistsError(
-        `User with email ${email} already exists.`
-      );
+        throw new EntityAlreadyExistsError(`User with email ${email} already exists.`);
     }
     const newUser = await User.create({ email, NSFWPreference: NSFWPref });
     if (!newUser) {
       throw new DatabaseError("User could not be created.");
     }
-    res.status(successCodes.CREATED).json({
-      status: "success",
-      data: {
-        user: newUser,
-      },
-    });
-  } catch (err) {
+    newUserEmitter.emit(EVENTS.SUCCESS, newUser);
+    res.status(successCodes.CREATED)
+  } catch(err) {
     res = handleError(err, res);
+    newUserEmitter.emit(EVENTS.ERROR, err.message);
     next(err);
   }
 };
@@ -175,6 +169,7 @@ function isValidEmail(email) {
 
 module.exports = {
   getAllUsers,
+  newUserEmitter,
   createNewUser,
   updateUserNSFWPreference,
   deleteUser,
