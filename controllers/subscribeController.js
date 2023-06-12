@@ -6,7 +6,6 @@ const handleSubscription = async (req, res, next) => {
   //TODO: Verification link to be emailed
   try {
     newUserEmitter.once(EVENTS.ERROR, (message) => {
-      console.log("Event emitter fired.");
       res.render(
         path.join(__dirname, "..", "views", "templates", "subscribeResponse.pug"),
         {
