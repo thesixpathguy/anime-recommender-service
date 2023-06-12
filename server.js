@@ -15,11 +15,14 @@ const cronJob = require("./services/cronScheduler/cronScheduler");
 const PORT = envConfig.httpPORT || 3500;
 
 // running cron job
-// cronJob.start();
+cronJob.start();
 
 // connecting DB
 console.log(envConfig.envName);
 if (envConfig.envName !== "dev") connectDB();
+
+// running cron job
+cronJob.start();
 
 app.set("view engine", "pug");
 
