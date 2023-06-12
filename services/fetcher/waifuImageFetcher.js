@@ -1,36 +1,20 @@
 const axios = require("axios");
 
+const url = "https://api.waifu.pics";
+
 const config = {
   method: "GET",
-  url: "https://api.waifu.pics",
+  url: url,
 };
 
 // categories provided by the api
 const category = [
   "waifu",
   "neko",
-  "shinobu",
-  "megumin",
   "bully",
-  "cuddle",
   "cry",
   "hug",
-  "awoo",
-  "kiss",
-  "lick",
-  "pat",
-  "bonk",
-  "blush",
   "smile",
-  "wave",
-  "highfive",
-  "handhold",
-  "bite",
-  "slap",
-  "kill",
-  "happy",
-  "wink",
-  "dance",
   "waifu",
   "neko",
   "trap",
@@ -39,14 +23,17 @@ const category = [
 
 const fetchRandomWaifu = async (type) => {
   try {
-    config.url += "/" + type;
+    config.url = url;
+    config.url = config.url.concat("/" + type);
     if (type == "sfw") {
-      config.url +=
-        "/" + category[Math.floor(Math.random() * category.length - 4)];
+      config.url = config.url.concat(
+        "/" + category[Math.floor(Math.random() * (category.length - 4))]
+      );
     } else {
-      config.url += "/" + category[Math.floor(Math.random() * category.length)];
+      config.url = config.url.concat(
+        "/" + category[Math.floor(Math.random() * category.length)]
+      );
     }
-
     const response = await axios.request(config);
     const imageURI = response.data;
     return imageURI;
