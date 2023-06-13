@@ -6,7 +6,6 @@ const config = {
   params: {
     q: "",
     sort: "asc",
-    letter: "",
   },
 };
 
@@ -16,7 +15,6 @@ const dummyAnimeURI = "https://cdn.myanimelist.net/images/anime/7/42453.jpg";
 const fetchAnimeImage = async (animeName) => {
   try {
     config.params.q = animeName;
-    config.params.letter = animeName;
     const response = await axios.request(config);
     if (response?.data?.data[0]?.images?.jpg?.image_url) {
       return response.data.data[0].images.jpg.image_url;
