@@ -31,7 +31,7 @@ const fetchRandomWaifu = async (type) => {
       );
     } else {
       config.url = config.url.concat(
-        "/" + category[Math.floor(Math.random() * category.length)]
+        "/" + category[6 + Math.floor(Math.random() * 4)]
       );
     }
     const response = await axios.request(config);

@@ -6,7 +6,6 @@ const config = {
   params: {
     q: "",
     sort: "asc",
-    letter: "",
   },
 };
 
@@ -17,7 +16,6 @@ const dummyCharacterURI =
 const fetchCharacterImage = async (characterName) => {
   try {
     config.params.q = characterName;
-    config.params.letter = characterName;
     const response = await axios.request(config);
     if (response?.data?.data[0]?.images?.jpg?.image_url) {
       return response.data.data[0].images.jpg.image_url;
