@@ -36,3 +36,4 @@ jobs:
         cat .env
         pwd
     - run: NODE_ENV=prod pm2 restart server.js
+    - run: pm2 save
