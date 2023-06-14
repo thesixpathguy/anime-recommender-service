@@ -27,12 +27,7 @@ jobs:
     - run: npm ci
     - run: |
         touch .env
-        echo DATABASE_URI=${{ secrets.DATABASE_URI }} >> .env
-        echo EMAIL_ACCOUNT=${{ secrets.EMAIL_ACCOUNT }} >> .env
-        echo EMAILL_PASSWORD=${{ secrets.EMAILL_PASSWORD }} >> .env
-        echo DEV_PORT=${{ secrets.DEV_PORT }} >> .env
-        echo PROD_PORT=${{ secrets.PROD_PORT }} >> .env
+        echo ${{ secrets.ENV_SECRETS }} >> .env
         cat .env
-        echo ${{ secrets.DATABASE_URI }}
         pwd
     - run: NODE_ENV=prod pm2 restart anime
