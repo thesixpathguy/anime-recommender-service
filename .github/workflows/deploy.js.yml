@@ -25,4 +25,4 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
     - run: npm ci
-    - run: npm run prod & npx wait-on http://localhost:3500
+    - run: NODE_ENV=prod pm2 restart server.js
