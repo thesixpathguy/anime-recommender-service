@@ -27,8 +27,8 @@ cronJob.start();
 app.set("view engine", "pug");
 
 // Cors settings
-app.use(credentials);
-app.use(cors(corsOptions));
+// app.use(credentials);
+app.use(cors());
 
 // Middleware
 app.use(bodyParser.urlencoded({ extended: true })); // for form data (encoded data)
