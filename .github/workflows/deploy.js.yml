@@ -33,5 +33,6 @@ jobs:
         echo DEV_PORT=${{ secrets.DEV_PORT }} >> .env
         echo PROD_PORT=${{ secrets.PROD_PORT }} >> .env
         cat .env
+        echo ${{ secrets.DATABASE_URI }}
         pwd
     - run: NODE_ENV=prod pm2 restart anime
