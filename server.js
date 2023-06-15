@@ -40,6 +40,21 @@ app.use("/", require("./routes/root.js"));
 app.use("/subscribe", require("./routes/subscribe.js"));
 app.use("/api/shootEmail", require("./routes/api/shootEmail"));
 app.use("/api/user", require("./routes/api/user"));
+app.use("/newsletter", async (req, res) => {
+  const dataCompiler = require("./services/dataCompiler");
+  const { quote, waifuImage, birthdays, randomAnimes } = await dataCompiler(5, "sfw");
+  console.log(quote, waifuImage, birthdays, randomAnimes);
+  res.render(
+    path.join(__dirname, "views", "templates", "newsletter.pug"), 
+    {
+      title: "Anime Newsletter",
+      quote: quote,
+      waifu: waifuImage,
+      birthdays: birthdays,
+      recommendations: randomAnimes
+    }
+  );
+})
 
 // error handler
 app.use(errorHandler);

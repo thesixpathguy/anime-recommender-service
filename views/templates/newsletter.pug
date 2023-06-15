@@ -1,0 +1,47 @@
+// generate a basic email template
+
+doctype html
+html 
+    head
+        title= title
+        link(rel='stylesheet', href='css/newsletter.css')
+    body
+        main 
+            section#quote-section 
+                h2 Anime Quote of the Day
+                p.quote= quote.quote
+                p.author= quote.character
+                p.anime= quote.anime
+
+            section#recommendations-section
+                h2 Anime Recommendations
+                //- recommendations: array of anime recommendations
+                - for (let i = 0; i < recommendations.length; i++)
+                    div.recommendation
+                        h3= recommendations[i].title
+                        p= recommendations[i].synopsis
+                        img(src=recommendations[i].imageURI)
+                        a(href=recommendations[i].url) View on MyAnimeList
+
+            section#birthday-section
+                h2 Anime Birthdays
+                //- birthdays: array of anime birthdays
+                - for (let i = 0; i < birthdays.length; i++)
+                    div.birthday
+                        h3= birthdays[i].name
+                        p= birthdays[i].desc
+                        //- a(href=birthdays[i].url) View on MyAnimeList
+                        img(src=birthdays[i].character_thumb)
+            
+            section#waifu-section
+                h2 Your Waifu of the Day
+                div.waifu
+                    //- h3= waifu.name
+                    //- p= waifu.description
+                    //- a(href=waifu.url) View on MyAnimeList
+                    img(src=waifu.url)
+    
+    footer
+        //- p If you want to unsubscribe, click here:
+        //- a(href=unsubscribeLink) Unsubscribe
+        p © Created by Pranjal and Kartik. All rights reserved.
