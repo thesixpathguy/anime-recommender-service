@@ -91,6 +91,7 @@ div.birthday-container {
 }
 div.birthday {
   margin: 0px 20px;
+  flex: 1;
 }
 div.birthday > img {
   width: 150px;
