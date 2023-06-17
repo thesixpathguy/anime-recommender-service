@@ -5,33 +5,51 @@ html
     head
         title= title
         link(rel='stylesheet', href='css/newsletter.css')
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
     body
-        main 
-            section#quote-section 
+        main
+            section#quote-section
                 h2 Anime Quote of the Day
-                p.quote= quote.quote
-                p.author= quote.character
-                p.anime= quote.anime
+                div.quoteContainer
+                    div.animeDiv
+                        img(src=quote.animeImageURI)
+                        p.anime= quote.anime
+                    div.quoteDiv
+                        p.quote= '"' + quote.quote + '"'
+                        p.author= '-' + quote.character
 
             section#recommendations-section
                 h2 Anime Recommendations
                 //- recommendations: array of anime recommendations
                 - for (let i = 0; i < recommendations.length; i++)
                     div.recommendation
-                        h3= recommendations[i].title
-                        p= recommendations[i].synopsis
-                        img(src=recommendations[i].imageURI)
-                        a(href=recommendations[i].url) View on MyAnimeList
+                        div.recommendation-img
+                            h3= recommendations[i].title
+                            img(src=recommendations[i].imageURI)
+                            br
+                            a(href=recommendations[i].url) View on MyAnimeList
+                        div.recommendation-text
+                            p= recommendations[i].synopsis
+                            li Rank: #{!isNaN(parseInt(recommendations[i].rank)) ? parseInt(recommendations[i].rank) : "NA"}
+                            li Episodes: #{!isNaN(parseInt(recommendations[i].episodes)) ? parseInt(recommendations[i].episodes) : "NA"}
+                            li Airing: #{recommendations[i].airing ? "Yes" : "No"}
+                            li Genre: #{recommendations[i].genre.length > 0 ? recommendations[i].genre.join(", ") : "NA"}
+                    - if (i !== recommendations.length - 1)
+                        hr
+
 
             section#birthday-section
                 h2 Anime Birthdays
                 //- birthdays: array of anime birthdays
-                - for (let i = 0; i < birthdays.length; i++)
-                    div.birthday
-                        h3= birthdays[i].name
-                        p= birthdays[i].desc
-                        //- a(href=birthdays[i].url) View on MyAnimeList
-                        img(src=birthdays[i].character_thumb)
+                div.birthday-container
+                    - for (let i = 0; i < birthdays.length; i++)
+                        div.birthday
+                            img(src=birthdays[i].character_thumb)
+                            h3= birthdays[i].name
+                            p= birthdays[i].desc
+                            //- a(href=birthdays[i].url) View on MyAnimeList
             
             section#waifu-section
                 h2 Your Waifu of the Day

@@ -42,7 +42,19 @@ app.use("/api/shootEmail", require("./routes/api/shootEmail"));
 app.use("/api/user", require("./routes/api/user"));
 app.use("/newsletter", async (req, res) => {
   const dataCompiler = require("./services/dataCompiler");
-  const { quote, waifuImage, birthdays, randomAnimes } = await dataCompiler(5, "sfw");
+  var quote, waifuImage, birthdays, randomAnimes;
+  // save to a file
+  const fs = require("fs");
+  if (!fs.existsSync("./data.json")) {
+    var { quote, waifuImage, birthdays, randomAnimes } = await dataCompiler(5, "sfw");
+    fs.writeFileSync("./data.json", JSON.stringify({ quote, waifuImage, birthdays, randomAnimes }));
+  } else {
+    const data = JSON.parse(fs.readFileSync("./data.json"));
+    quote = data.quote;
+    waifuImage = data.waifuImage;
+    birthdays = data.birthdays;
+    randomAnimes = data.randomAnimes;
+  }
   console.log(quote, waifuImage, birthdays, randomAnimes);
   res.render(
     path.join(__dirname, "views", "templates", "newsletter.pug"), 

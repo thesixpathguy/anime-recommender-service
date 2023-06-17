@@ -1,32 +1,115 @@
+@font-face {
+  font-family: "hello dove";
+  src: url("../fonts/hello dove/hello dove.eot");
+  src: url("../fonts/hello dove/hello dove.woff2") format("woff2"),
+       url("../fonts/hello dove/hello dove.ttf") format("truetype");
+}
+
+html {
+  text-align: center;
+}
+
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-  }
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+}
   
-  main {
-    padding: 20px;
-  }
-  
-  h2 {
-    margin-top: 0;
-  }
-  
-  #quote-section {
-    border-top: 1px solid #ccc;
-    margin-top: 20px;
-    padding-top: 20px;
-  }
-  
-  #recommendations-section,
-  #waifu-section,
-  #birthday-section {
-    margin-top: 20px;
-  }
-  
-  footer {
-    background-color: #f9f9f9;
-    padding: 10px;
-    text-align: center;
-    font-size: 14px;
-  }
+main {
+  padding: 20px;
+}
+
+h2 {
+  margin-top: 0;
+}
+
+section {
+  border-top: 1px solid #ccc;
+  margin-top: 20px;
+  padding-top: 20px;
+}
+
+#quote-section div.quoteContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+#quote-section div.animeDiv {
+  flex: 1;
+}
+#quote-section div.quoteDiv {
+  flex: 2;
+}
+
+#quote-section p.quote {
+  font-family: "hello dove", Arial;
+  font-size: 40px;
+}
+#quote-section p.author {
+  font-size: 16px;
+  font-style: italic;
+  margin-top: 0;
+  text-align: right;
+}
+
+#recommendations-section div.recommendation {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 20px;
+}
+#recommendations-section > hr {
+  border: none;
+  width: 70%;
+  border-bottom: 1px solid #4287f5;
+}
+
+#recommendations-section div.recommendation-img {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+#recommendations-section div.recommendation-img > * {
+  flex: auto;
+}
+#recommendations-section div.recommendation-img > a {
+  font-size: 12px;
+}
+#recommendations-section div.recommendation-text {
+  flex: 2;
+  padding: 50px 20px;
+  text-align: left;
+}
+
+div.birthday-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+div.birthday {
+  margin: 0px 20px;
+}
+div.birthday > img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+}
+div.birthday > p {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+div.waifu > img {
+  max-width: 400px;
+  max-height: 400px;
+}
+
+footer {
+  background-color: #f9f9f9;
+  padding: 10px;
+  text-align: center;
+  font-size: 14px;
+}
