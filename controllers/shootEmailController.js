@@ -3,6 +3,8 @@ const dataCompiler = require("../services/dataCompiler");
 const { errorCodes, successCodes } = require("../utils/statusCodes");
 const fetchClients = require("../services/clientsFetcher");
 const rateLimiter = require("../utils/rateLimiter");
+const pug = require("pug");
+const path = require("path");
 
 const subject = "New Anime Letter";
 
@@ -17,15 +19,39 @@ const shootEmail = async (req, res, next) => {
     const pass = process.env.EMAILL_PASSWORD;
     const toSFW = await fetchClients(false); // fetch the subscribed sfw clients
     const toNSFW = await fetchClients(true); // fetch the subscribed nsfw clients
-    const text = "This is the quote";
+    const text = "";
+    // const compiledTemplate = pug.compileFile(path.join(__dirname, "..", "views", "templates", "newsletter.pug"));
     if (toSFW !== "") {
-      const dataObjSFW = await dataCompiler(5, "sfw"); // compiles html template data
-      await sendEmail(from, pass, toSFW, subject, text, "");
+      const { quote, waifuImage, birthdays, randomAnimes } = await dataCompiler(5, "sfw");  // compiles html template data
+      // const html = compiledTemplate({
+      //   title: "Anime Newsletter",
+      //   quote: quote,
+      //   waifu: waifuImage,
+      //   birthdays: birthdays,
+      //   recommendations: randomAnimes
+      // });
+      const html = pug.renderFile(path.join(__dirname, "..", "views", "templates", "newsletter.pug"),
+      {
+        title: "Anime Newsletter",
+        quote: quote,
+        waifu: waifuImage,
+        birthdays: birthdays,
+        recommendations: randomAnimes
+      });
+      await sendEmail(from, pass, toSFW, subject, text, html);
     }
     rateLimiter(10000);
     if (toNSFW !== "") {
-      const dataObjNSFW = await dataCompiler(5, "nsfw"); // compiles html template data
-      await sendEmail(from, pass, toNSFW, subject, text, "");
+      const { quote, waifuImage, birthdays, randomAnimes } = await dataCompiler(5, "nsfw"); // compiles html template data
+      const html = pug.renderFile(path.join(__dirname, "..", "views", "templates", "newsletter.pug"),
+      {
+        title: "Anime Newsletter",
+        quote: quote,
+        waifu: waifuImage,
+        birthdays: birthdays,
+        recommendations: randomAnimes
+      });
+      await sendEmail(from, pass, toNSFW, subject, text, html);
     }
     res.sendStatus(successCodes.ACCEPTED);
   } catch (err) {

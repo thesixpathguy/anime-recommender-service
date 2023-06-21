@@ -1,13 +1,133 @@
-// generate a basic email template
-
 doctype html
-html 
+html
     head
         title= title
-        link(rel='stylesheet', href='css/newsletter.css')
+        //- link(rel='stylesheet', href='css/newsletter.css')
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+        style.
+            @font-face {
+                font-family: "hello dove";
+                src: url("../fonts/hello dove/hello dove.eot");
+                src: url("../fonts/hello dove/hello dove.woff2") format("woff2"),
+                    url("../fonts/hello dove/hello dove.ttf") format("truetype");
+            }
+
+            html, * {
+                text-align: center;
+            }
+
+            body {
+                font-family: 'Poppins', sans-serif;
+                margin: 0;
+                padding: 0;
+            }
+                
+            main {
+                padding: 20px;
+            }
+
+            h2 {
+                margin-top: 0;
+            }
+
+            section {
+                border-top: 1px solid #ccc;
+                margin-top: 20px;
+                padding-top: 20px;
+            }
+
+            .quoteContainer {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+            }
+
+            .animeDiv {
+                flex: 1;
+            }
+            .quoteDiv {
+                flex: 2;
+            }
+
+            .quote {
+                font-family: "hello dove", Arial;
+                font-size: 30px;
+            }
+            .author {
+                font-size: 16px;
+                font-style: italic;
+                margin-top: 0;
+                text-align: right;
+            }
+
+            .recommendation {
+                display: flex;
+                flex-direction: row;
+                margin-bottom: 20px;
+            }
+            #recommendations-section > hr {
+                border: none;
+                width: 70%;
+                border-bottom: 1px solid #4287f5;
+            }
+            .div.recommendation-img {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
+            .recommendation-img > * {
+                flex: auto;
+            }
+            .recommendation-img > a {
+                font-size: 12px;
+            }
+            .recommendation-text {
+                flex: 2;
+                padding: 50px 20px;
+                text-align: left;
+            }
+            div.recommendation-text > p {
+                text-align: left;
+            }
+            div.recommendation-text > li {
+                text-align: left;
+            }
+
+            div.birthday-container {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+            }
+            div.birthday {
+                margin: 0px 20px;
+                flex: 1;
+            }
+            div.birthday > img {
+                width: 150px;
+                height: 150px;
+                border-radius: 50%;
+            }
+            div.birthday > p {
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+
+            div.waifu > img {
+                max-width: 400px;
+                max-height: 400px;
+            }
+
+            footer {
+                background-color: #f9f9f9;
+                padding: 10px;
+                text-align: center;
+                font-size: 14px;
+            }
     body
         main
             section#quote-section
