@@ -2,7 +2,7 @@ const CronJob = require("cron").CronJob;
 const axios = require("axios");
 const { logEvents } = require("../../middleware/logEvents");
 
-const cron = "0 */2 * * *"; // every day at 10:15 AM
+const cron = "0 */5 * * *"; // every day at 10:15 AM
 
 var cronJob = new CronJob(
   cron,
