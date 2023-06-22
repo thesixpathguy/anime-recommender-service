@@ -21,9 +21,6 @@ cronJob.start();
 console.log(envConfig.envName);
 if (envConfig.envName !== "dev") connectDB();
 
-// running cron job
-cronJob.start();
-
 app.set("view engine", "pug");
 
 // Cors settings

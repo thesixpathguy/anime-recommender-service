@@ -1,0 +1,185 @@
+doctype html
+html
+    head
+        title= title
+        //- link(rel='stylesheet', href='css/newsletter.css')
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+        style.
+            @font-face {
+                font-family: "hello dove";
+                src: url("../fonts/hello dove/hello dove.eot");
+                src: url("../fonts/hello dove/hello dove.woff2") format("woff2"),
+                    url("../fonts/hello dove/hello dove.ttf") format("truetype");
+            }
+
+            html, * {
+                text-align: center;
+            }
+
+            body {
+                font-family: 'Poppins', sans-serif;
+                margin: 0;
+                padding: 0;
+            }
+                
+            main {
+                padding: 20px;
+            }
+
+            h2 {
+                margin-top: 0;
+            }
+
+            section {
+                border-top: 1px solid #ccc;
+                margin-top: 20px;
+                padding-top: 20px;
+            }
+
+            .quoteContainer {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+            }
+
+            .animeDiv {
+                flex: 1;
+            }
+            .quoteDiv {
+                flex: 2;
+            }
+
+            .quote {
+                font-family: "hello dove", Arial;
+                font-size: 30px;
+            }
+            .author {
+                font-size: 16px;
+                font-style: italic;
+                margin-top: 0;
+                text-align: right;
+            }
+
+            .recommendation {
+                display: flex;
+                flex-direction: row;
+                margin-bottom: 20px;
+            }
+            #recommendations-section > hr {
+                border: none;
+                width: 70%;
+                border-bottom: 1px solid #4287f5;
+            }
+            .div.recommendation-img {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
+            .recommendation-img > * {
+                flex: auto;
+            }
+            .recommendation-img > a {
+                font-size: 12px;
+            }
+            .recommendation-text {
+                flex: 2;
+                padding: 50px 20px;
+                text-align: left;
+            }
+            div.recommendation-text > p {
+                text-align: left;
+            }
+            div.recommendation-text > li {
+                text-align: left;
+            }
+
+            div.birthday-container {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+            }
+            div.birthday {
+                margin: 0px 20px;
+                flex: 1;
+            }
+            div.birthday > img {
+                width: 150px;
+                height: 150px;
+                border-radius: 50%;
+            }
+            div.birthday > p {
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+
+            div.waifu > img {
+                max-width: 400px;
+                max-height: 400px;
+            }
+
+            footer {
+                background-color: #f9f9f9;
+                padding: 10px;
+                text-align: center;
+                font-size: 14px;
+            }
+    body
+        main
+            section#quote-section
+                h2 Anime Quote of the Day
+                div.quoteContainer
+                    div.animeDiv
+                        img(src=quote.animeImageURI)
+                        p.anime= quote.anime
+                    div.quoteDiv
+                        p.quote= '"' + quote.quote + '"'
+                        p.author= '-' + quote.character
+
+            section#recommendations-section
+                h2 Anime Recommendations
+                //- recommendations: array of anime recommendations
+                - for (let i = 0; i < recommendations.length; i++)
+                    div.recommendation
+                        div.recommendation-img
+                            h3= recommendations[i].title
+                            img(src=recommendations[i].imageURI)
+                            br
+                            a(href=recommendations[i].url) View on MyAnimeList
+                        div.recommendation-text
+                            p= recommendations[i].synopsis
+                            li Rank: #{!isNaN(parseInt(recommendations[i].rank)) ? parseInt(recommendations[i].rank) : "NA"}
+                            li Episodes: #{!isNaN(parseInt(recommendations[i].episodes)) ? parseInt(recommendations[i].episodes) : "NA"}
+                            li Airing: #{recommendations[i].airing ? "Yes" : "No"}
+                            li Genre: #{recommendations[i].genre.length > 0 ? recommendations[i].genre.join(", ") : "NA"}
+                    - if (i !== recommendations.length - 1)
+                        hr
+
+
+            section#birthday-section
+                h2 Anime Birthdays
+                //- birthdays: array of anime birthdays
+                div.birthday-container
+                    - for (let i = 0; i < birthdays.length; i++)
+                        div.birthday
+                            img(src=birthdays[i].character_thumb)
+                            h3= birthdays[i].name
+                            p= birthdays[i].desc
+                            //- a(href=birthdays[i].url) View on MyAnimeList
+            
+            section#waifu-section
+                h2 Your Waifu of the Day
+                div.waifu
+                    //- h3= waifu.name
+                    //- p= waifu.description
+                    //- a(href=waifu.url) View on MyAnimeList
+                    img(src=waifu.url)
+    
+    footer
+        //- p If you want to unsubscribe, click here:
+        //- a(href=unsubscribeLink) Unsubscribe
+        p © Created by Pranjal and Kartik. All rights reserved.

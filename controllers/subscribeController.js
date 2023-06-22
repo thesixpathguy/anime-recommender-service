@@ -1,6 +1,7 @@
 const path = require("path");
 const { createNewUser, newUserEmitter } = require("./userController");
 const { EVENTS } = require("../utils/utilConstants");
+const rateLimiter = require("../utils/rateLimiter");
 
 const handleSubscription = async (req, res, next) => {
   //TODO: Verification link to be emailed
@@ -26,6 +27,7 @@ const handleSubscription = async (req, res, next) => {
       );
     });
     await createNewUser(req, res, next);
+    rateLimiter(5000);
   } catch (err) {
     next(err);
   }

@@ -20,7 +20,12 @@ const fetchRandomAnime = async () => {
         if (res.rank > rankLimit) continue; // rank limit check
         if (res.title) anime.title = res.title;
         if (res.url) anime.url = res.url;
-        if (res.synopsis) anime.synopsis = res.synopsis;
+        if (res.synopsis) {
+          anime.synopsis = res.synopsis;
+          // regex to remove all text between [] and () brackets
+          anime.synopsis = anime.synopsis.replace(/\[.*?\]/g, "");
+          anime.synopsis = anime.synopsis.replace(/\(.*?\)/g, "");
+        }
         if (res.genres) {
           const genre = res.genres.map((g) => g.name);
           anime.genre = genre;
