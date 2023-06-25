@@ -6,7 +6,7 @@ const config = {
   url: "https://api.jikan.moe/v4/random/anime",
 };
 
-const rankLimit = 1000; // will pick animes below the rank of 3000
+const rankLimit = 500; // will pick animes below the rank of 3000
 
 const fetchRandomAnime = async () => {
   try {
