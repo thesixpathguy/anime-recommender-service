@@ -16,7 +16,7 @@ const subject = "New Anime Letter";
 const shootEmail = async (req, res, next) => {
   try {
     const from = process.env.EMAIL_ACCOUNT;
-    const pass = process.env.EMAILL_PASSWORD;
+    const pass = process.env.EMAIL_PASSWORD;
     const toSFW = await fetchClients(false); // fetch the subscribed sfw clients
     const toNSFW = await fetchClients(true); // fetch the subscribed nsfw clients
     const text = "";
