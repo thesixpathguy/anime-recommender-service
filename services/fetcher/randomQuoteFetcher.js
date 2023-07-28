@@ -1,10 +1,14 @@
+require("dotenv").config();
 const axios = require("axios");
 const fetchAnimeImage = require("./animeImageFetcher");
 const fetchCharacterImage = require("./characterImageFetcher");
 
 const config = {
   method: "GET",
-  url: "http://animechan.melosh.space/random",
+  url: "https://waifu.it/api/quote",
+  headers: {
+    Authorization: process.env.ANIMU_API_TOKEN,
+  }
 };
 
 const fetchRandomQuote = async () => {
@@ -16,12 +20,11 @@ const fetchRandomQuote = async () => {
 
     // fetching character image
     let characterImageURI = await fetchCharacterImage(
-      response.data.character || ""
+      response.data.author || ""
     );
 
-    const quote = { ...response.data, animeImageURI, characterImageURI };
-    delete quote["key"]; // deleting redundant params
-    delete quote["__v"]; // deleting redundant params
+    const quote = { ...response.data, characterImageURI, animeImageURI };
+    delete quote["_id"]; // deleting redundant params
     return quote;
   } catch (err) {
     throw err;
